@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>a1367499-8b4c-4dd4-844e-cc7ff50766c9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PersonalAssistance.py</StartupFile>
+    <StartupFile>Calculator.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PersonalAssistance.py" />
+    <Compile Include="Country.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Calculator.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
