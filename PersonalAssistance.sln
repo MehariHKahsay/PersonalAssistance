@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PersonalAssistance", "PersonalAssistance\PersonalAssistance.pyproj", "{A1367499-8B4C-4DD4-844E-CC7FF50766C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1367499-8B4C-4DD4-844E-CC7FF50766C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1367499-8B4C-4DD4-844E-CC7FF50766C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34DF901E-0CF1-47C7-AA29-E23BE6A6814E}
+	EndGlobalSection
+EndGlobal
