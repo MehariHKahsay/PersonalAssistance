@@ -47,7 +47,7 @@ class Calculator:
         clearhistory = input("Type \"history clear\" if you want to clear the history \n : ")
         if clearhistory == "history clear":
             f = open('file.csv', 'r+')
-            f.truncate(0)  # need '0' when using r+
+            f.truncate(0)  
             print("History Cleared")
         else:
             print("Please type \"history clear\": ")
