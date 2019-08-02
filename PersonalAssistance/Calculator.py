@@ -3,9 +3,9 @@ class Calculator:
     def calculate(self):
         self.result = 0
         str(input("Hello this is Eliana, Personal Assistant...\nTry typing \'math\' or \'calculate\' : "))
-        self.firstOperand = int(input("First Number: "))
+        self.first_operand = int(input("First Number: "))
         self.operator = input("Operator: ")
-        self.secondoperand = int(input("Second Number: "))
+        self.second_operand = int(input("Second Number: "))
         operators = ['+', '-', '/', '*']
         for x in operators:
             if x != self.operator:
@@ -14,22 +14,21 @@ class Calculator:
             else:
                 pass
                 if self.operator == "+":
-                    self.result = self.firstOperand + self.secondoperand
+                    self.result = self.first_operand + self.second_operand
                 elif self.operator == "-":
-                    self.result = self.firstOperand - self.secondoperand
+                    self.result = self.first_operand - self.second_operand
                 elif self.operator == "*":
-                    self.result = self.firstOperand * self.secondoperand
+                    self.result = self.first_operand * self.second_operand
                 elif self.operator == "/":
-                    self.result = self.firstOperand / self.secondoperand
-                print(self.firstOperand, "", self.operator, "", self.secondoperand, "=", self.result)
+                    self.result = self.first_operand / self.second_operand
+                print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
                 break
 
     def history(self):
         f = open("file.csv", "a+")
-        recordhistory = self.firstOperand, self.operator, self.secondoperand, "=", self.result
+        recordhistory = self.first_operand, self.operator, self.second_operand, "=", self.result
         f.write(str(recordhistory))
         f.close()
-
 
     def viewHistory(self):
         history = input("Do you want to see calculation history? Y/N \n : ")
