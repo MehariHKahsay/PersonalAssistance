@@ -6,23 +6,21 @@ class Calculator:
         self.first_operand = int(input("First Number: "))
         self.operator = input("Operator: ")
         self.second_operand = int(input("Second Number: "))
-        operators = ['+', '-', '/', '*']
-        for x in operators:
-            if x != self.operator:
-                print("Please enter valid operator")
-                break
-            else:
-                pass
-                if self.operator == "+":
-                    self.result = self.first_operand + self.second_operand
-                elif self.operator == "-":
-                    self.result = self.first_operand - self.second_operand
-                elif self.operator == "*":
-                    self.result = self.first_operand * self.second_operand
-                elif self.operator == "/":
-                    self.result = self.first_operand / self.second_operand
-                print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
-                break
+        if self.operator == "+":
+            self.result = self.first_operand + self.second_operand
+            print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
+        elif self.operator == "-":
+            self.result = self.first_operand - self.second_operand
+            print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
+        elif self.operator == "*":
+            self.result = self.first_operand * self.second_operand
+            print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
+        elif self.operator == "/":
+            self.result = self.first_operand / self.second_operand
+            print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
+        else:
+            print("You typed wrong operator: ")
+            again()
 
     def history(self):
         f = open("file.csv", "a+")
@@ -32,28 +30,49 @@ class Calculator:
 
     def viewHistory(self):
         history = input("Do you want to see calculation history? Y/N \n : ")
-        if history == "Y":
+        if history.upper() == "Y":
             with open("file.csv", 'r') as viewFileOpen:
                 data = viewFileOpen.read()
-                data.format()
+                #formateddata = data.format(str())
             print("Calculation History: \n", data)
-        elif history == "N":
+        elif history.upper() == "N":
             print("Thank you!")
         else:
-            print("Please type Y/N")
-
+            print("You didn't type Y/N")
+            again()
     def clearHistory(self):
         clearhistory = input("Type \"history clear\" if you want to clear the history \n : ")
-        if clearhistory == "history clear":
+        if clearhistory.upper() == "HISTORY CLEAR":
             f = open('file.csv', 'r+')
             f.truncate(0)  
             print("History Cleared")
         else:
-            print("Please type \"history clear\": ")
+            print("You didn't type \"history clear\" ")
+            again()   
 
+def again():
+    calc_again = input('''
+Do you want to calculate again?
+Please type Y for YES or N for NO.
+''')
 
-test = Calculator()
-test.calculate()
-test.history()
-test.viewHistory()
-test.clearHistory()
+    # Accept 'y' or 'Y' by adding str.upper()
+    if calc_again.upper() == 'Y':
+        test = Calculator()
+        test.calculate()
+
+    # Accept 'n' or 'N' by adding str.upper()
+    elif calc_again.upper() == 'N':
+        print('See you later.')
+
+    else:
+        again()
+
+def display():
+    test = Calculator()
+    test.calculate()
+    test.history()
+    test.viewHistory()
+    test.clearHistory()
+
+display()

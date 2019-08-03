@@ -1,4 +1,4 @@
-class Country(object):
+class Country(self):
     """description of class"""
 
 
