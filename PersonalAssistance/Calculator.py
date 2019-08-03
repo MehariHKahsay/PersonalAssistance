@@ -1,8 +1,19 @@
 
 class Calculator:
+    print("Hello this is Eliana, Personal Assistant...\n")
+
+    def welcome(self):
+        welcomeuser = input("Try typing \'MATH\' or \'CALCULATE\' : ")
+        if(welcomeuser.upper() == "MATH") or (welcomeuser.upper() == "CALCULATE"):
+            pass
+        else:
+            #again()
+            print("You didn't type \"MATH\" or \"CALCULATE\" :")
+            test = Calculator()
+            test.welcome()
+
     def calculate(self):
         self.result = 0
-        str(input("Hello this is Eliana, Personal Assistant...\nTry typing \'math\' or \'calculate\' : "))
         self.first_operand = int(input("First Number: "))
         self.operator = input("Operator: ")
         self.second_operand = int(input("Second Number: "))
@@ -20,7 +31,8 @@ class Calculator:
             print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
         else:
             print("You typed wrong operator: ")
-            again()
+            test = Calculator()
+            test.calculate()
 
     def history(self):
         f = open("file.csv", "a+")
@@ -39,7 +51,9 @@ class Calculator:
             print("Thank you!")
         else:
             print("You didn't type Y/N")
-            again()
+            test = Calculator()
+            test.viewHistory()
+
     def clearHistory(self):
         clearhistory = input("Type \"history clear\" if you want to clear the history \n : ")
         if clearhistory.upper() == "HISTORY CLEAR":
@@ -48,31 +62,15 @@ class Calculator:
             print("History Cleared")
         else:
             print("You didn't type \"history clear\" ")
-            again()   
-
-def again():
-    calc_again = input('''
-Do you want to calculate again?
-Please type Y for YES or N for NO.
-''')
-
-    # Accept 'y' or 'Y' by adding str.upper()
-    if calc_again.upper() == 'Y':
-        test = Calculator()
-        test.calculate()
-
-    # Accept 'n' or 'N' by adding str.upper()
-    elif calc_again.upper() == 'N':
-        print('See you later.')
-
-    else:
-        again()
+            test = Calculator()
+            test.clearHistory()   
 
 def display():
     test = Calculator()
+    test.welcome()
     test.calculate()
     test.history()
     test.viewHistory()
     test.clearHistory()
-
+     
 display()
