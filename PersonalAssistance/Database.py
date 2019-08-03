@@ -38,36 +38,60 @@ def countries():
     #return list of countries
     with conn:
         c.execute("SELECT name FROM country")
-        return c.fetchall()
-def continents():
+        result = c.fetchall()
+        print(result)
+def locations():
     #return list of continents
         with conn:
             c.execute("SELECT location FROM country")
-            return c.fetchall()
+            result = c.fetchall()
+            print(result)
 
 def capitalCities():
     #return list of capital cities
         with conn:
             c.execute("SELECT capital FROM country")
-            return c.fetchall()
+            result = c.fetchall()
+            print(result)
 
 def currencies():
     #return list of currencies
         with conn:
             c.execute("SELECT currency FROM country")
-            return c.fetchall()
+            result = c.fetchall()
+            print(result)
 
 def population():
     #returns population
         with conn:
             c.execute("SELECT population FROM country")
-            return c.fetchall()
+            result = c.fetchall()
+            print(result)
 
-def population():
+def area():
 #returns population
     with conn:
         c.execute("SELECT area FROM country")
-        return c.fetchall()
+        result = c.fetchall()
+        print(result)
+
+def displayQueries():
+    user = input("Pleae type NAME, LOCATION, CURRENCY, CAPITAL CITY, POPULATION, or AREA: ")
+    if user.upper() == "NAME":
+        countries()
+    elif user.upper() == "LOCATION":
+        locations()
+    elif user.upper() == "CURRENCY":
+        currencies()
+    elif user.upper() == "CAPITAL CITY":
+        capitalCities()
+    elif user.upper() == "POPULATION":
+        population()
+    elif user.upper() == "AREA":
+        area()
+    else:
+        print("Wrong input...")
+        displayQueries()
 
 def userQueries():
     userinput = str(input("Type field of a Contry: Example \"Name of Canada\""))
@@ -75,8 +99,10 @@ def userQueries():
     field = splited.index(0)
     country = splited.index(2)
 
-test = countries()
-print(test)
+
+
+#displayQueries()
+
 conn.commit()
 conn.close()
 
