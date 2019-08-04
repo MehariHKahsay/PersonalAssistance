@@ -7,4 +7,9 @@ class Countries:
         self.currency = currency
         self.population = population
         self.area = area       
-        
+ 
+class History:
+    def __init__(self, country, field, result):
+        self.country = country
+        self.field = field
+        self.result = result

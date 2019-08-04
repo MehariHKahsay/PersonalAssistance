@@ -12,6 +12,13 @@ c.execute("""CREATE TABLE countries(
             population integer,
             area integer)""")
  
+
+c.execute("""CREATE TABLE history(
+            country text,
+            field text,
+            result text
+            )""")
+
 canada = Countries('Canada','North America','Ottawa', 'Canadian dollar', 32268240, 9970610)
 eritrea = Countries('Eritrea','Africa','Asmara', 'Nakfa', 4401357, 117600)
 iraq = Countries('Iraq','Asia','Baghdad', 'Iraqi dinar', 28807190, 438317)
@@ -50,7 +57,7 @@ def locations():
 def capitalCities():
     #return list of capital cities
         with conn:
-            c.execute("SELECT capital FROM countries")
+            c.execute("SELECT capital_city FROM countries")
             result = c.fetchall()
             print(result)
 
@@ -76,22 +83,27 @@ def area():
         print(result)
 
 def displayQueries():
-    user = input("Pleae type NAME, LOCATION, CURRENCY, CAPITAL_CITY, POPULATION, or AREA: ")
-    if user.upper() == "NAME":
-        countries()
-    elif user.upper() == "LOCATION":
-        locations()
-    elif user.upper() == "CURRENCY":
-        currencies()
-    elif user.upper() == "CAPITAL CITY":
-        capitalCities()
-    elif user.upper() == "POPULATION":
-        population()
-    elif user.upper() == "AREA":
-        area()
+    user = input("countries, continents, populations, capital cities, currencies: ")
+    usertypes = ["countries", "continents","populations", "capital cities", "currencies" ]
+    userlower = user.lower()
+    if userlower in usertypes:
+        pass
     else:
-        print("Wrong input...")
+        print("Sorry, I don’t have that information, try again...")
         displayQueries()
+
+    if userlower == "countries":
+        countries()
+    elif userlower == "continents":
+        locations()
+    elif userlower == "populations":
+        population()
+    elif userlower == "capital cities":
+        capitalCities()
+    elif userlower == "currencies":
+        currencies()
+    else:
+        pass
 
 def nameOfcountries(countries):
         with conn:
@@ -139,6 +151,7 @@ def userQueries():
         ufield = field.upper()
         country = splited[2]
         countriesname = country.upper()
+
         if ufield in fieldnames:
             pass
         else:
@@ -168,6 +181,7 @@ def userQueries():
  
 userQueries()
 displayQueries()
+
 conn.commit()
 conn.close()
 
