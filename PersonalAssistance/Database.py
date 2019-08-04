@@ -1,10 +1,10 @@
 import sqlite3
 from Countries import Countries
-
+from Countries import History
 conn = sqlite3.connect(':memory:')
-#conn = sqlite3.connect('Countries.db')
+#conn = sqlite3.connect('country.db')
 c = conn.cursor()
-c.execute("""CREATE TABLE countries(
+c.execute("""CREATE TABLE country(
             name text,
             location text,
             capital_city text,
@@ -27,64 +27,65 @@ cuba = Countries('Cuba','North America','Havana', 'Cuban peso', 11269400, 110861
 sudan = Countries('Sudan','Africa','Khartoum', 'Sudanese dinar', 36232950, 2505813)
 peru = Countries('Peru','South America','Lima', 'Peruvian nuevo sol', 27968240, 1285216)
 
-c.execute("INSERT INTO countries values(?,?,?,?,?,?)", (canada.name, canada.location, canada.capital_city, canada.currency, canada.population, canada.area))
+c.execute("INSERT INTO country values(?,?,?,?,?,?)", (canada.name, canada.location, canada.capital_city, canada.currency, canada.population, canada.area))
 conn.commit()
-c.execute("INSERT INTO countries values(?,?,?,?,?,?)", (eritrea.name, eritrea.location, eritrea.capital_city, eritrea.currency, eritrea.population, eritrea.area))
+c.execute("INSERT INTO country values(?,?,?,?,?,?)", (eritrea.name, eritrea.location, eritrea.capital_city, eritrea.currency, eritrea.population, eritrea.area))
 conn.commit()
-c.execute("INSERT INTO countries values(?,?,?,?,?,?)", (iraq.name, iraq.location, iraq.capital_city, iraq.currency, iraq.population, iraq.area))
+c.execute("INSERT INTO country values(?,?,?,?,?,?)", (iraq.name, iraq.location, iraq.capital_city, iraq.currency, iraq.population, iraq.area))
 conn.commit()
-c.execute("INSERT INTO countries values(?,?,?,?,?,?)", (jordan.name, jordan.location, jordan.capital_city, jordan.currency, jordan.population, jordan.area))
+c.execute("INSERT INTO country values(?,?,?,?,?,?)", (jordan.name, jordan.location, jordan.capital_city, jordan.currency, jordan.population, jordan.area))
 conn.commit()
-c.execute("INSERT INTO countries values(?,?,?,?,?,?)", (cuba.name, cuba.location, cuba.capital_city, cuba.currency, cuba.population, cuba.area))
+c.execute("INSERT INTO country values(?,?,?,?,?,?)", (cuba.name, cuba.location, cuba.capital_city, cuba.currency, cuba.population, cuba.area))
 conn.commit()
-c.execute("INSERT INTO countries values(?,?,?,?,?,?)", (sudan.name, sudan.location, sudan.capital_city, sudan.currency, sudan.population, sudan.area))
+c.execute("INSERT INTO country values(?,?,?,?,?,?)", (sudan.name, sudan.location, sudan.capital_city, sudan.currency, sudan.population, sudan.area))
 conn.commit()
-c.execute("INSERT INTO countries values(?,?,?,?,?,?)", (peru.name, peru.location, peru.capital_city, peru.currency, peru.population, peru.area))
+c.execute("INSERT INTO country values(?,?,?,?,?,?)", (peru.name, peru.location, peru.capital_city, peru.currency, peru.population, peru.area))
 
-def countries():
-    #return list of countries
+def country():
+    #return list of country
     with conn:
-        c.execute("SELECT name FROM countries")
-        result = c.fetchall()
+        c.execute("SELECT name FROM country")
+        result = list(c.fetchall())
         print(result)
 def locations():
     #return list of continents
         with conn:
-            c.execute("SELECT location FROM countries")
-            result = c.fetchall()
+            c.execute("SELECT location FROM country")
+            result = list(c.fetchall())
             print(result)
 
 def capitalCities():
     #return list of capital cities
         with conn:
-            c.execute("SELECT capital_city FROM countries")
-            result = c.fetchall()
+            c.execute("SELECT capital_city FROM country")
+            result = list(c.fetchall())
             print(result)
 
 def currencies():
     #return list of currencies
         with conn:
-            c.execute("SELECT currency FROM countries")
-            result = c.fetchall()
+            c.execute("SELECT currency FROM country")
+            result = list(c.fetchall())
             print(result)
 
 def population():
     #returns population
         with conn:
-            c.execute("SELECT population FROM countries")
-            result = c.fetchall()
+            c.execute("SELECT population FROM country")
+            result = list(c.fetchall())
             print(result)
 
 def area():
 #returns population
     with conn:
-        c.execute("SELECT area FROM countries")
-        result = c.fetchall()
+        c.execute("SELECT area FROM country")
+        result = list(c.fetchall())
         print(result)
 
+#Function to display country, continents, populations, capital cities, or currencies         
 def displayQueries():
-    user = input("countries, continents, populations, capital cities, currencies: ")
-    usertypes = ["countries", "continents","populations", "capital cities", "currencies" ]
+    user = input("country, continents, populations, capital cities, currencies: ")
+    usertypes = ["country", "continents","populations", "capital cities", "currencies" ]
     userlower = user.lower()
     if userlower in usertypes:
         pass
@@ -92,8 +93,8 @@ def displayQueries():
         print("Sorry, I don’t have that information, try again...")
         displayQueries()
 
-    if userlower == "countries":
-        countries()
+    if userlower == "country":
+        country()
     elif userlower == "continents":
         locations()
     elif userlower == "populations":
@@ -105,42 +106,48 @@ def displayQueries():
     else:
         pass
 
-def nameOfcountries(countries):
+#List of country, based on the argument received (Country Name)
+def nameOfcountry(country):
         with conn:
-            c.execute("SELECT name FROM countries WHERE upper(name) =:name",{'name':countries})
-            result = c.fetchall()
-            print(result)
-def locationOfcountries(countries):
-        with conn:
-            c.execute("SELECT location FROM countries WHERE upper(name) =:name",{'name':countries})
-            result = c.fetchall()
+            c.execute("SELECT name FROM country WHERE upper(name) =:name",{'name':country})
+            result = list(c.fetchall())
             print(result)
 
-def currencyOfcountries(countries):
+#List of locations, based on the argument received (Country Name)
+def locationOfcountry(country):
         with conn:
-            c.execute("SELECT currency FROM countries WHERE upper(name) =:name",{'name':countries})
-            result = c.fetchall()
+            c.execute("SELECT location FROM country WHERE upper(name) =:name",{'name':country})
+            result = list(c.fetchall())
             print(result)
 
-
-def capitalCityOfcountries(countries):
+#List of currencies, based on the argument received (Country Name)
+def currencyOfcountry(country):
         with conn:
-            c.execute("SELECT capital_city FROM countries WHERE upper(name) =:name",{'name':countries})
-            result = c.fetchall()
+            c.execute("SELECT currency FROM country WHERE upper(name) =:name",{'name':country})
+            result = list(c.fetchall())
+            print(result)
+
+#List of capital cities, based on the argument received (Country Name)
+def capitalCityOfcountry(country):
+        with conn:
+            c.execute("SELECT capital_city FROM country WHERE upper(name) =:name",{'name':country})
+            result = list(c.fetchall())
             print(result)            
 
-def populationOfcountries(countries):
+#List of populations, based on the argument received (Country Name)
+def populationOfcountry(country):
         with conn:
-            c.execute("SELECT population FROM countries WHERE upper(name) =:name",{'name':countries})
-            result = c.fetchall()
+            c.execute("SELECT population FROM country WHERE upper(name) =:name",{'name':country})
+            result = list(c.fetchall())
+            print(result)
+#Not required ---- List of areas, based on the argument received (Country Name)
+def areaOfcountry(country):
+        with conn:
+            c.execute("SELECT area FROM country WHERE upper(name) =:name",{'name':country})
+            result = list(c.fetchall())
             print(result)
 
-def areaOfcountries(countries):
-        with conn:
-            c.execute("SELECT area FROM countries WHERE upper(name) =:name",{'name':countries})
-            result = c.fetchall()
-            print(result)
-
+#Display result when a user quereies by "Field of Country"
 def userQueries():
         userinput = str(input("Type field of a Contry: Example \"Name of Canada\":"))
         fieldnames = ["NAME", "LOCATION", "CURRENCY", "CAPITAL_CITY", "POPULATION", "AREA"]
@@ -150,37 +157,47 @@ def userQueries():
         field = splited[0]
         ufield = field.upper()
         country = splited[2]
-        countriesname = country.upper()
+        countryname = country.upper()
 
+        #Error handling for field and country
         if ufield in fieldnames:
             pass
         else:
              print("Wrong field name input try again...")
              userQueries() 
 
-        if countriesname in countrynames:
+        if countryname in countrynames:
             pass
         else:
              print("Wrong country name input try again...")
              userQueries() 
-
+        
+        #Returns the method that gives the required data based on the field and country passed 
         if ufield == "NAME":
-            nameOfcountries(countriesname)
+            result = nameOfcountry(countryname)
+            c.execute("INSERT INTO history values(?,?,?)",( countryname, ufield, result) )
         elif ufield == "LOCATION":
-            locationOfcountries(countriesname)
+            result = nameOfcountry(countryname)
+            c.execute("INSERT INTO history values(?,?,?)",( countryname, ufield, result) )
         elif ufield == "CURRENCY":
-            currencyOfcountries(countriesname)
+            result = currencyOfcountry(countryname)
+            c.execute("INSERT INTO history values(?,?,?)",( countryname, ufield, result) )
         elif ufield == "CAPITAL_CITY":
-            capitalCityOfcountries(countriesname)
+            result = capitalCityOfcountry(countryname)
+            c.execute("INSERT INTO history values(?,?,?)",( countryname, ufield, result) )
         elif ufield == "POPULATION":
-            populationOfcountries(countriesname)
+            result = populationOfcountry(countryname)
+            c.execute("INSERT INTO history values(?,?,?)",( countryname, ufield, result) )
         elif ufield == "AREA":
-            areaOfcountries(countriesname)
+            areaOfcountry(countryname)
         else:
             pass
  
+
 userQueries()
 displayQueries()
+c.execute("SELECT * FROM history")
+print(c.fetchall())
 
 conn.commit()
 conn.close()
