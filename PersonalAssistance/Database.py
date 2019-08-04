@@ -131,32 +131,43 @@ def areaOfcountries(countries):
 
 def userQueries():
         userinput = str(input("Type field of a Contry: Example \"Name of Canada\":"))
+        fieldnames = ["NAME", "LOCATION", "CURRENCY", "CAPITAL_CITY", "POPULATION", "AREA"]
+        countrynames = ["ERITREA", "IRAQ", "CANADA","CUBA","SUDAN","PERU" ]
         splited = userinput.split(" ")
         print(splited)
         field = splited[0]
-        uppercae = field.upper()
-        print(uppercae)
+        ufield = field.upper()
         country = splited[2]
         countriesname = country.upper()
+        if ufield in fieldnames:
+            pass
+        else:
+             print("Wrong field name input try again...")
+             userQueries() 
 
-        if field.upper() == "NAME":
+        if countriesname in countrynames:
+            pass
+        else:
+             print("Wrong country name input try again...")
+             userQueries() 
+
+        if ufield == "NAME":
             nameOfcountries(countriesname)
-        elif field.upper() == "LOCATION":
+        elif ufield == "LOCATION":
             locationOfcountries(countriesname)
-        elif field.upper() == "CURRENCY":
+        elif ufield == "CURRENCY":
             currencyOfcountries(countriesname)
-        elif field.upper() == "CAPITAL_CITY":
+        elif ufield == "CAPITAL_CITY":
             capitalCityOfcountries(countriesname)
-        elif field.upper() == "POPULATION":
+        elif ufield == "POPULATION":
             populationOfcountries(countriesname)
-        elif field.upper() == "AREA":
+        elif ufield == "AREA":
             areaOfcountries(countriesname)
         else:
-            print("Wrong input...")
-            userQueries() 
+            pass
  
 userQueries()
-#displayQueries()
+displayQueries()
 conn.commit()
 conn.close()
 
