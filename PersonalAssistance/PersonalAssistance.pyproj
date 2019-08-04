@@ -28,7 +28,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Calculator.py" />
-    <Compile Include="Database.py">
+    <Compile Include="Main.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

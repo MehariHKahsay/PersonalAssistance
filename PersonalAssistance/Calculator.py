@@ -1,6 +1,7 @@
+from inspect import currentframe, getframeinfo
 
 class Calculator:
-    print("Hello this is Eliana, Personal Assistant...\n")
+    print("Hello this is Eliana, Your Personal Assistant...\n")
 
     def welcome(self):
         welcomeuser = input("Try typing \'MATH\' or \'CALCULATE\' : ")
@@ -8,15 +9,33 @@ class Calculator:
             pass
         else:
             #again()
-            print("You didn't type \"MATH\" or \"CALCULATE\" :")
+            print("You didn't type \"MATH\" or \"CALCULATE\", try again...")
             test = Calculator()
             test.welcome()
 
     def calculate(self):
         self.result = 0
-        self.first_operand = int(input("First Number: "))
+        try:
+            self.first_operand = int(input("First Number: "))
+        except :
+            print("Not an integer: Try again...")
+            self.first_operand = int(input("First Number: "))
+
+        operators = ["+", "-", "*", "/"]
         self.operator = input("Operator: ")
-        self.second_operand = int(input("Second Number: "))
+
+        if self.operator in operators:
+            pass
+        else:
+            print("Wrong operator, try again... ")
+            self.operator = input("Operator: ")
+
+        try:
+            self.second_operand = int(input("Second Number: "))
+        except :
+            print("Not an integer: Try again...")
+            self.second_operand = int(input("Second Number: "))
+
         if self.operator == "+":
             self.result = self.first_operand + self.second_operand
             print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
@@ -30,9 +49,7 @@ class Calculator:
             self.result = self.first_operand / self.second_operand
             print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
         else:
-            print("You typed wrong operator: ")
-            test = Calculator()
-            test.calculate()
+            pass
 
     def history(self):
         f = open("file.csv", "a+")
@@ -59,18 +76,8 @@ class Calculator:
         if clearhistory.upper() == "HISTORY CLEAR":
             f = open('file.csv', 'r+')
             f.truncate(0)  
-            print("History Cleared")
+            print("History Cleared!")
         else:
             print("You didn't type \"history clear\" ")
             test = Calculator()
             test.clearHistory()   
-
-def display():
-    test = Calculator()
-    test.welcome()
-    test.calculate()
-    test.history()
-    test.viewHistory()
-    test.clearHistory()
-     
-display()

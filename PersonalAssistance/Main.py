@@ -1,6 +1,9 @@
+from inspect import currentframe, getframeinfo
 import sqlite3
 from Countries import Countries
 from Countries import History
+from Calculator import Calculator
+
 conn = sqlite3.connect(':memory:')
 #conn = sqlite3.connect('country.db')
 c = conn.cursor()
@@ -41,7 +44,7 @@ c.execute("INSERT INTO country values(?,?,?,?,?,?)", (sudan.name, sudan.location
 conn.commit()
 c.execute("INSERT INTO country values(?,?,?,?,?,?)", (peru.name, peru.location, peru.capital_city, peru.currency, peru.population, peru.area))
 
-def country():
+def countries():
     #return list of country
     with conn:
         c.execute("SELECT name FROM country")
@@ -68,7 +71,7 @@ def currencies():
             result = list(c.fetchall())
             print(result)
 
-def population():
+def populations():
     #returns population
         with conn:
             c.execute("SELECT population FROM country")
@@ -84,8 +87,8 @@ def area():
 
 #Function to display country, continents, populations, capital cities, or currencies         
 def displayQueries():
-    user = input("country, continents, populations, capital cities, currencies: ")
-    usertypes = ["country", "continents","populations", "capital cities", "currencies" ]
+    user = input("countries, continents, populations, capital cities, currencies: ")
+    usertypes = ["countries", "continents","populations", "capital cities", "currencies" ]
     userlower = user.lower()
     if userlower in usertypes:
         pass
@@ -93,12 +96,12 @@ def displayQueries():
         print("Sorry, I don’t have that information, try again...")
         displayQueries()
 
-    if userlower == "country":
-        country()
+    if userlower == "countries":
+        countries()
     elif userlower == "continents":
         locations()
     elif userlower == "populations":
-        population()
+        populations()
     elif userlower == "capital cities":
         capitalCities()
     elif userlower == "currencies":
@@ -177,7 +180,7 @@ def userQueries():
             result = nameOfcountry(countryname)
             c.execute("INSERT INTO history values(?,?,?)",( countryname, ufield, result) )
         elif ufield == "LOCATION":
-            result = nameOfcountry(countryname)
+            result = locationOfcountry(countryname)
             c.execute("INSERT INTO history values(?,?,?)",( countryname, ufield, result) )
         elif ufield == "CURRENCY":
             result = currencyOfcountry(countryname)
@@ -193,13 +196,63 @@ def userQueries():
         else:
             pass
  
+def showhistory():
+    user = input("Type \'datum\' to see history: ")
+    userlower = user.lower()
+    if userlower == "datum":
+        c.execute("SELECT * FROM history")
+        print(c.fetchall())
+    else:
+        print("Worng input try again...")
+        showhistory()
+ 
+def showhistorybylinenumber():
+    user = input("Type \'datum LINE_NUMBER\' to see history: Eample datum 5 ")
+    spliter = user.split(" ")
+    LINE_NUMBER = int(spliter[1])
+    datum = spliter[0]
+    datumlower = datum.lower()
 
-userQueries()
-displayQueries()
-c.execute("SELECT * FROM history")
-print(c.fetchall())
+    if (datumlower == "datum") and (type(LINE_NUMBER) == int):
+        c.execute("SELECT * FROM history")
+        print(c.fetchall())
+    else:
+        print("Worng input try again...")
+        showhistorybylinenumber()
+        
+
+def clearistory():
+    user = input("Type \'datum clear\' to clear history: ")
+    userlower = user.lower()
+    if userlower == "datum clear":
+        c.execute("DELETE FROM history")
+        print("Record cleared!!!")
+
+    else:
+        print("Worng input try again...")
+        clearistory()
+
+#Display results for the Calculator program
+def displayCalculator():
+    test = Calculator()
+    test.welcome()
+    test.calculate()
+    test.history()
+    test.viewHistory()
+    test.clearHistory()
+
+#Function to display Countries program     
+def displayCountries():
+    displayQueries()
+    userQueries()
+    showhistory()
+    showhistorybylinenumber()
+    clearistory()
+
+#Run the program
+displayCalculator()
+displayCountries()
+
 
 conn.commit()
 conn.close()
-
-
