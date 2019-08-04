@@ -4,10 +4,11 @@ from Countries import Countries
 from Countries import History
 from Calculator import Calculator
 
-conn = sqlite3.connect(':memory:')
-#conn = sqlite3.connect('country.db')
+#conn = sqlite3.connect(':memory:')
+conn = sqlite3.connect('country.db')
 c = conn.cursor()
-c.execute("""CREATE TABLE country(
+#c.execute("DROP TABLE country")
+c.execute("""CREATE TABLE IF NOT EXISTS country(
             name text,
             location text,
             capital_city text,
@@ -16,7 +17,7 @@ c.execute("""CREATE TABLE country(
             area integer)""")
  
 
-c.execute("""CREATE TABLE history(
+c.execute("""CREATE TABLE IF NOT EXISTS history(
             country text,
             field text,
             result text
@@ -47,47 +48,47 @@ c.execute("INSERT INTO country values(?,?,?,?,?,?)", (peru.name, peru.location, 
 def countries():
     #return list of country
     with conn:
-        c.execute("SELECT name FROM country")
+        c.execute("SELECT distinct(name) FROM country")
         result = list(c.fetchall())
         print(result)
 def locations():
     #return list of continents
         with conn:
-            c.execute("SELECT location FROM country")
+            c.execute("SELECT distinct(location) FROM country")
             result = list(c.fetchall())
             print(result)
 
 def capitalCities():
     #return list of capital cities
         with conn:
-            c.execute("SELECT capital_city FROM country")
+            c.execute("SELECT distinct(capital_city) FROM country")
             result = list(c.fetchall())
             print(result)
 
 def currencies():
     #return list of currencies
         with conn:
-            c.execute("SELECT currency FROM country")
+            c.execute("SELECT distinct(currency) FROM country")
             result = list(c.fetchall())
             print(result)
 
 def populations():
     #returns population
         with conn:
-            c.execute("SELECT population FROM country")
+            c.execute("SELECT distinct(population) FROM country")
             result = list(c.fetchall())
             print(result)
 
 def area():
 #returns population
     with conn:
-        c.execute("SELECT area FROM country")
+        c.execute("SELECT distinct(area) FROM country")
         result = list(c.fetchall())
         print(result)
 
 #Function to display country, continents, populations, capital cities, or currencies         
 def displayQueries():
-    user = input("countries, continents, populations, capital cities, currencies: ")
+    user = input("Type one of the following \n countries, continents, populations, capital cities, currencies: ")
     usertypes = ["countries", "continents","populations", "capital cities", "currencies" ]
     userlower = user.lower()
     if userlower in usertypes:
@@ -113,41 +114,41 @@ def displayQueries():
 def nameOfcountry(country):
         with conn:
             c.execute("SELECT name FROM country WHERE upper(name) =:name",{'name':country})
-            result = list(c.fetchall())
+            result = list(c.fetchone())
             print(result)
 
 #List of locations, based on the argument received (Country Name)
 def locationOfcountry(country):
         with conn:
             c.execute("SELECT location FROM country WHERE upper(name) =:name",{'name':country})
-            result = list(c.fetchall())
+            result = list(c.fetchone())
             print(result)
 
 #List of currencies, based on the argument received (Country Name)
 def currencyOfcountry(country):
         with conn:
             c.execute("SELECT currency FROM country WHERE upper(name) =:name",{'name':country})
-            result = list(c.fetchall())
+            result = list(c.fetchone())
             print(result)
 
 #List of capital cities, based on the argument received (Country Name)
 def capitalCityOfcountry(country):
         with conn:
             c.execute("SELECT capital_city FROM country WHERE upper(name) =:name",{'name':country})
-            result = list(c.fetchall())
+            result = list(c.fetchone())
             print(result)            
 
 #List of populations, based on the argument received (Country Name)
 def populationOfcountry(country):
         with conn:
             c.execute("SELECT population FROM country WHERE upper(name) =:name",{'name':country})
-            result = list(c.fetchall())
+            result = list(c.fetchone())
             print(result)
 #Not required ---- List of areas, based on the argument received (Country Name)
 def areaOfcountry(country):
         with conn:
             c.execute("SELECT area FROM country WHERE upper(name) =:name",{'name':country})
-            result = list(c.fetchall())
+            result = list(c.fetchone())
             print(result)
 
 #Display result when a user quereies by "Field of Country"
@@ -222,14 +223,21 @@ def showhistorybylinenumber():
         
 
 def clearistory():
-    user = input("Type \'datum clear\' to clear history: ")
-    userlower = user.lower()
-    if userlower == "datum clear":
-        c.execute("DELETE FROM history")
-        print("Record cleared!!!")
-
+    askuser = input("Do you want to clear history? Y/N :\n")
+    askuserlower = askuser.upper()
+    if askuserlower == "Y":
+        clearhistory = input("Type \'datum clear\' to clear the history \n : ")
+        if clearhistory.upper() == "DATUM CLEAR":
+            c.execute("DELETE FROM history")
+            print("Record cleared!!!")
+        else:
+            print("Worng input try again...")
+            clearistory()
+    elif askuserlower == "N":
+        print("Thank you!!!")
+        pass
     else:
-        print("Worng input try again...")
+        print("Not valid input, try typing Y/N again...")
         clearistory()
 
 #Display results for the Calculator program
@@ -240,6 +248,7 @@ def displayCalculator():
     test.history()
     test.viewHistory()
     test.clearHistory()
+
 
 #Function to display Countries program     
 def displayCountries():

@@ -50,7 +50,7 @@ class Calculator:
             print(self.first_operand, "", self.operator, "", self.second_operand, "=", self.result)
         else:
             pass
-
+        
     def history(self):
         f = open("file.csv", "a+")
         recordhistory = self.first_operand, self.operator, self.second_operand, "=", self.result
@@ -72,12 +72,34 @@ class Calculator:
             test.viewHistory()
 
     def clearHistory(self):
-        clearhistory = input("Type \"history clear\" if you want to clear the history \n : ")
-        if clearhistory.upper() == "HISTORY CLEAR":
-            f = open('file.csv', 'r+')
-            f.truncate(0)  
-            print("History Cleared!")
+        askuser = input("Do you want to clear history? Y/N :\n")
+        askuserupper = askuser.upper()
+        if askuserupper == "Y":
+            clearhistory = input("Type \"history clear\" if you want to clear the history \n : ")
+            if clearhistory.upper() == "HISTORY CLEAR":
+                f = open('file.csv', 'r+')
+                f.truncate(0)  
+                print("History Cleared!")
+            else:
+                print("You didn't type \"history clear\" ")
+                test = Calculator()
+                test.clearHistory()   
+        elif askuserupper == "N":
+            pass
         else:
-            print("You didn't type \"history clear\" ")
+            print("Not valid input, try typing Y/N again...")
             test = Calculator()
-            test.clearHistory()   
+            test.clearHistory()  
+
+
+    def ans():
+        useresult = input("To use result from prevous calculation, type \"history use LINE_NUMBER\", Example history use 2: ")
+        linenumbers = [1,2,3,4,5,6,7,8,9,10]
+        splitter = useresult.split()
+        LINE_NUMBER = splitter[2]
+        print(LINE_NUMBER)
+        if LINE_NUMBER in linenumbers:
+            return _
+        else:
+            print("Invalid LINE_NUMBER try again...")
+            ans()
