@@ -24,7 +24,7 @@
     <Compile Include="Code.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Country.py">
+    <Compile Include="Countries.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Calculator.py" />
