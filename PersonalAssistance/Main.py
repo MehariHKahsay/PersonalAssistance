@@ -155,7 +155,7 @@ def areaOfcountry(country):
 def userQueries():
         userinput = str(input("Type field of a Contry: Example \"Name of Canada\":"))
         fieldnames = ["NAME", "LOCATION", "CURRENCY", "CAPITAL_CITY", "POPULATION", "AREA"]
-        countrynames = ["ERITREA", "IRAQ", "CANADA","CUBA","SUDAN","PERU" ]
+        countrynames = ["ERITREA", "IRAQ", "CANADA","CUBA","SUDAN","PERU","JORDAN" ]
         splited = userinput.split(" ")
         print(splited)
         field = splited[0]
@@ -202,18 +202,17 @@ def showhistory():
     userlower = user.lower()
     if userlower == "datum":
         c.execute("SELECT * FROM history")
-        print(c.fetchall())
+        print(c.fetchall(),"\n")
     else:
         print("Worng input try again...")
         showhistory()
  
 def showhistorybylinenumber():
-    user = input("Type \'datum LINE_NUMBER\' to see history: Eample datum 5 ")
+    user = input("Type \'datum LINE_NUMBER\' to see history, Eample datum 5: \n ")
     spliter = user.split(" ")
     LINE_NUMBER = int(spliter[1])
     datum = spliter[0]
     datumlower = datum.lower()
-
     if (datumlower == "datum") and (type(LINE_NUMBER) == int):
         c.execute("SELECT * FROM history")
         print(c.fetchall())
@@ -229,16 +228,27 @@ def clearistory():
         clearhistory = input("Type \'datum clear\' to clear the history \n : ")
         if clearhistory.upper() == "DATUM CLEAR":
             c.execute("DELETE FROM history")
-            print("Record cleared!!!")
+            print("Datum history cleared!!! \n")
         else:
             print("Worng input try again...")
             clearistory()
     elif askuserlower == "N":
-        print("Thank you!!!")
         pass
     else:
         print("Not valid input, try typing Y/N again...")
         clearistory()
+
+def askusertorunprogramagain():
+    askusertorunagain = input("Do you want to run the program again? Y/N\n:")
+    changetolower = askusertorunagain.lower()
+    if changetolower == "y":
+        print("\n ############################################### Sure, you are now running the program again! ################################################## \n")
+        runtheprogram()
+    elif changetolower == "n":
+        print("Thank you for using the PA, see you again!!!")
+        pass
+    else:
+        askusertorunprogramagain()
 
 #Display results for the Calculator program
 def displayCalculator():
@@ -255,13 +265,16 @@ def displayCountries():
     displayQueries()
     userQueries()
     showhistory()
-    showhistorybylinenumber()
+    #showhistorybylinenumber()
     clearistory()
+    askusertorunprogramagain()
 
 #Run the program
-displayCalculator()
-displayCountries()
+def runtheprogram():
+    displayCalculator()
+    displayCountries()
 
+runtheprogram()
 
 conn.commit()
 conn.close()

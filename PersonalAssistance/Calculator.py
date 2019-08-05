@@ -1,10 +1,10 @@
 from inspect import currentframe, getframeinfo
 
 class Calculator:
-    print("Hello this is Eliana, Your Personal Assistant...\n")
+    print("Hello this is Eritrea, Your Personal Assistant...\n")
 
     def welcome(self):
-        welcomeuser = input("Try typing \'MATH\' or \'CALCULATE\' : ")
+        welcomeuser = input("For assistance, please try typing \'math\' or \'calculate\' : ")
         if(welcomeuser.upper() == "MATH") or (welcomeuser.upper() == "CALCULATE"):
             pass
         else:
@@ -65,7 +65,7 @@ class Calculator:
                 #formateddata = data.format(str())
             print("Calculation History: \n", data)
         elif history.upper() == "N":
-            print("Thank you!")
+            pass
         else:
             print("You didn't type Y/N")
             test = Calculator()
@@ -79,7 +79,7 @@ class Calculator:
             if clearhistory.upper() == "HISTORY CLEAR":
                 f = open('file.csv', 'r+')
                 f.truncate(0)  
-                print("History Cleared!")
+                print("Calculator history Cleared!\n")
             else:
                 print("You didn't type \"history clear\" ")
                 test = Calculator()
